@@ -1,6 +1,1 @@
-[submodule "leveldb"]
-	path = leveldb
-	url = https://github.com/google/leveldb.git
-[submodule "Distributed-LevelDB/submodules/leveldb"]
-	path = Distributed-LevelDB/submodules/leveldb
-	url = https://github.com/google/leveldb.git
+
