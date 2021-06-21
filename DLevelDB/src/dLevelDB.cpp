@@ -3,6 +3,8 @@
 //
 
 #include <dLevelDB.h>
+#include <random>
+#include <string>
 
 dLevelDB::dLevelDB(std::string const& config_path) {
     using namespace rapidjson;
@@ -60,7 +62,13 @@ dLevelDB::dLevelDB(std::string const& config_path) {
         network_name = network_json["name"].GetString();
     }
     else {
-        network_name = "Ko8gC7jXVR0fKjpu7VCnHW9rBL3nN0ejNLMJmTNXkIIEY3f3Jx3OejlpSGJtPYbSvx7eDUXN8zlrc/z9";  // TODO: Generate randomly
+        // Random string generator
+        std::string str("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+        std::random_device rd;
+        std::mt19937 generator(rd());
+        std::shuffle(str.begin(), str.end(), generator);
+
+        network_name = str.substr(0, 32);
         network_json.AddMember("name", StringRef(network_name.c_str()), network_json.GetAllocator());
 
         saveNetworkConfig();
@@ -128,9 +136,9 @@ leveldb::Status dLevelDB::newLevelDB(std::string name) {
     leveldb::DB* new_db;
     leveldb::Options opt;
     opt.create_if_missing = true;
-    leveldb::Status status = leveldb::DB::Open(opt, "./dbs/" + name, &new_db);
+    std::string db_file = "./dbs/" + name;
+    leveldb::Status status = leveldb::DB::Open(opt, db_file, &new_db);
 
-    // TODO: fix this
     dbs.emplace(name, new_db);
     options[name] = opt;
 
@@ -191,7 +199,6 @@ bool dLevelDB::put(std::string key, std::string value) {
         return true;
     }
     else {
-        // TODO: Ask around to store this
 
         return false;
     }
@@ -202,7 +209,6 @@ bool dLevelDB::remove(std::string key) {
         return true;
     }
     else {
-        // TODO: Ask around to delete this
 
         return false;
     }

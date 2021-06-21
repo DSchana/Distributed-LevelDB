@@ -37,7 +37,7 @@ bool isJSONValid(rapidjson::Document& doc);
 std::string getStringFromJSON(rapidjson::Value const& doc);
 
 class dLevelDB {
-    std::map<std::string, std::unique_ptr<leveldb::DB> > dbs;
+    std::map<std::string, leveldb::DB*> dbs;
     std::map<std::string, leveldb::Options> options;
 
     leveldb::Status newLevelDB(std::string name);
