@@ -1,1 +1,4 @@
 
+[submodule "DLevelDB/submodules/rapidjson"]
+	path = DLevelDB/submodules/rapidjson
+	url = https://github.com/Tencent/rapidjson.git

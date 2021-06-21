@@ -10,4 +10,4 @@ add_subdirectory(DLevelDB)
 
 add_executable(DistributedDB ${CXX_EXEC})
 target_include_directories(DistributedDB PUBLIC inc/)
-target_link_libraries(DistributedDB DLevelDB)
+target_link_libraries(DistributedDB DLevelDB leveldb)

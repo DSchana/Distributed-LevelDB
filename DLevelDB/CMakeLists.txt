@@ -6,7 +6,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
+find_package(RapidJSON CONFIG REQUIRED)
+find_package(leveldb CONFIG REQUIRED)
 file(GLOB CXX_EXEC "src/*.cpp")
 
 add_library(DLevelDB SHARED ${CXX_EXEC})
-target_include_directories(DLevelDB PUBLIC inc/)
+target_include_directories(DLevelDB PUBLIC inc/ ${RapidJSON_INCLUDE_DIRS})

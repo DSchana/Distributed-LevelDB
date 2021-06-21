@@ -2,8 +2,14 @@
 #include <iostream>
 
 int main() {
+    dLevelDB db;
 
-    while (true) {}
+    db.put("Key1", "Val1");
+    db.put("Key2", "Val2");
+
+    std::string val = db.get("Key1");
+    std::cout << val << std::endl;
+    std::cout << db["Key2"] << std::endl;
 
     return 0;
 }
