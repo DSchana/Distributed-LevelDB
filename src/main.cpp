@@ -2,6 +2,7 @@
 #include <iostream>
 
 int main() {
+    std::cout << "Starting" << std::endl;
     dLevelDB db;
 
     db.put("Key1", "Val1");

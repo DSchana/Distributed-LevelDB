@@ -125,13 +125,13 @@ dLevelDB::dLevelDB(std::string const& config_path) {
 }
 
 leveldb::Status dLevelDB::newLevelDB(std::string name) {
-    std::unique_ptr<leveldb::DB> new_db;// = static_cast<leveldb::DB *>(malloc(sizeof(leveldb::DB)));
+    leveldb::DB* new_db;
     leveldb::Options opt;
     opt.create_if_missing = true;
-    leveldb::Status status = leveldb::DB::Open(opt, "./dbs/" + name, reinterpret_cast<leveldb::DB **>(new_db.get()));
+    leveldb::Status status = leveldb::DB::Open(opt, "./dbs/" + name, &new_db);
 
     // TODO: fix this
-    dbs[name] = std::unique_ptr<leveldb::DB>(std::move(new_db));
+    dbs.emplace(name, new_db);
     options[name] = opt;
 
     return status;
